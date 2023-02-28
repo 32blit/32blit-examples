@@ -1,33 +1,111 @@
-# 32Blit Boilerplate
+# 32blit Examples
 
-![Build](https://github.com/32blit/32blit-boilerplate/workflows/Build/badge.svg)
+A collection of example projects demonstrating features of the 32blit SDK.
 
-This is a basic template for starting 32blit projects. It shows the basic
-code layout and asset pipeline, hopefully giving folk a starting point for
-any new projects.
+To get started writing your own game, you should use the 32blit boilerplate - https://github.com/32blit/32blit-boilerplate/
 
-It's based on the original `template` project from the 
-[32Blit SDK](https://github.com/32blit/32blit-sdk), with added asset
-handling, and some tidying up to fit in with how I do things.
+## Contents
 
-## Usage
+### Audio Test
 
-[Use this template](https://github.com/32blit/32blit-boilerplate/generate) to
-generate your own project.
+Demonstrates the configuration of multiple synth channels and playing a multi-channel melody.
 
-* Edit the CMakeList.txt file to set the name of your project
-* Edit the metadata.yml file to set the information for your project
-* Edit the LICENSE file to set your name on the license
-* Write lots of super cool code!
+### Audio Wave
 
-You should then be able to follow the usual build instructions.
+Demonstrate playing a raw, headerless, 22,050Hz wave file using 32blit's `wave_buffer_callback`.
 
-For local builds this is:
-```
-mkdir build
-cd build
-cmake -D32BLIT_DIR=/path/to/32blit-sdk/ ..
-```
+### DOOM Fire
 
-Platform/Editor specific insctuctions [can be found in the main 32blit repo](https://github.com/32blit/32blit-sdk#you-will-need)
-(For Visual Studio, you should follow the "Option 2" instructions, as the boilerplate does not contain a solution file)
+A demo implementation of "Doom Fire", as documented by Fabien Sanglard: http://fabiensanglard.net/doom_fire_psx/
+
+### Fizzlefade
+
+A demo implementation of the fizzle-fade transition, as documented by Fabien Sanglard: https://fabiensanglard.net/fizzlefade/
+
+Uses a linear-feedback shift-register to produce random-looking values for pixel locations, making the screen "fizzle" from one colour to another, pixel-by-pixel in an apparently random order.
+
+### Flight
+
+An example of a flight simulator using mode7 style graphics.
+
+### Geometry ???
+
+### Hardware Test ???
+
+### JPEG
+
+Shows how to decode a JPEG image and display it on the screen.
+
+### Logo
+
+The 32blit logo being animated on-screen as swirling particles.
+
+### Matrix Test
+
+Wat?
+
+### Metadata Test
+
+Demonstrates the reading back of ".blit" metadata in an application.
+
+### MP3
+
+Demonstrates playing a 22,050Hz, mono .mp3 file loaded from the SD card.
+
+### Multiplayer
+
+A basic demonstration of the 32blit multiplayer functionality.
+
+If you're using 32blit handhelds you will need a microUSB to microUSB OTG cable. For example: https://www.amazon.co.uk/gp/product/B00RX1H9ZS/
+
+### Palette Cycle
+
+The classic palette cycling technique, combining a static sprite with a rotating set of colours in the palette in order to give the appearance of animation.
+
+### Palette Swap
+
+Another classic technique, recoloring sprites on the fly by swapping their palette before they are drawn.
+
+### Particle
+
+A demonstration of various particle effects.
+
+### Piano
+
+### PicoSystem Hardware Test
+
+### Platformer
+
+### Profiler Test
+
+### Raycaster ??? (Ray Caster)
+
+### Rotozoom
+
+### Saves
+
+### Scrolly Tile ??? (Rainbow Ascent)
+
+### Serial Debug
+
+### SHMUP
+
+### Sprite Test
+
+### Text
+
+### Tilemap Test
+
+### Tilt
+
+### Timer Test
+
+### Tunnel
+
+### Tween Demo
+
+### Tween Test
+
+### Voxel
+
+### Waveform Demo
