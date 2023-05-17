@@ -1,33 +1,189 @@
-# 32Blit Boilerplate
+# 32blit Examples
 
-![Build](https://github.com/32blit/32blit-boilerplate/workflows/Build/badge.svg)
+A collection of example projects demonstrating features of the 32blit SDK.
 
-This is a basic template for starting 32blit projects. It shows the basic
-code layout and asset pipeline, hopefully giving folk a starting point for
-any new projects.
+To get started writing your own game, you should use the 32blit boilerplate - https://github.com/32blit/32blit-boilerplate/
 
-It's based on the original `template` project from the 
-[32Blit SDK](https://github.com/32blit/32blit-sdk), with added asset
-handling, and some tidying up to fit in with how I do things.
+## Contents
 
-## Usage
+### Audio Test
 
-[Use this template](https://github.com/32blit/32blit-boilerplate/generate) to
-generate your own project.
+Demonstrates the configuration of multiple synth channels and playing a multi-channel melody.
 
-* Edit the CMakeList.txt file to set the name of your project
-* Edit the metadata.yml file to set the information for your project
-* Edit the LICENSE file to set your name on the license
-* Write lots of super cool code!
+### Audio Wave
 
-You should then be able to follow the usual build instructions.
+Demonstrate playing a raw, headerless, 22,050Hz wave file using 32blit's `wave_buffer_callback`.
 
-For local builds this is:
-```
-mkdir build
-cd build
-cmake -D32BLIT_DIR=/path/to/32blit-sdk/ ..
-```
+### DOOM Fire
 
-Platform/Editor specific insctuctions [can be found in the main 32blit repo](https://github.com/32blit/32blit-sdk#you-will-need)
-(For Visual Studio, you should follow the "Option 2" instructions, as the boilerplate does not contain a solution file)
+A demo implementation of "Doom Fire", as documented by Fabien Sanglard: http://fabiensanglard.net/doom_fire_psx/
+
+### Fizzlefade
+
+A demo implementation of the fizzle-fade transition, as documented by Fabien Sanglard: https://fabiensanglard.net/fizzlefade/
+
+Uses a linear-feedback shift-register to produce random-looking values for pixel locations, making the screen "fizzle" from one colour to another, pixel-by-pixel in an apparently random order.
+
+### Flight
+
+An example of a flight simulator using mode7 style graphics.
+
+### Geometry
+
+A playable game of asteroids.
+
+### Hardware Test
+
+### JPEG
+
+Shows how to decode a JPEG image and display it on the screen.
+
+### Logo
+
+The 32blit logo being animated on-screen as swirling particles.
+
+### Matrix Test
+
+Wat?
+
+### Metadata Test
+
+Demonstrates the reading back of ".blit" metadata in an application.
+
+### MP3
+
+Demonstrates playing a 22,050Hz, mono .mp3 file loaded from the SD card.
+
+### Multiplayer
+
+A basic demonstration of the 32blit multiplayer functionality.
+
+If you're using 32blit handhelds you will need a microUSB to microUSB OTG cable. For example: https://www.amazon.co.uk/gp/product/B00RX1H9ZS/
+
+### Palette Cycle
+
+The classic palette cycling technique, combining a static sprite with a rotating set of colours in the palette in order to give the appearance of animation.
+
+### Palette Swap
+
+Another classic technique, recoloring sprites on the fly by swapping their palette before they are drawn.
+
+### Particle
+
+A demonstration of various particle effects.
+
+### Piano
+
+A mini sequencer.
+
+* DPad Left/Right: Move cursor
+* DPad Up/Down: Change note (and play preview)
+* A: Play/Pause
+* B: Mute/Unmute note 
+* Y: Return to start
+
+### PicoSystem Hardware Test
+
+A basic test fo the PicoSystem hardware.
+
+Should play music and show button status.
+
+### Platformer
+
+A tile-based platformer demo.
+
+* DPad Left/Right: Move player
+* DPad Up/Down: Climb ladder or swim up/down
+* A: Jump
+
+### Profiler Test
+
+A demonstration of the 32blit profiler showing the time taken to run various drawing functions.
+
+* DPad Left/Right: Switch page
+* DPad Up/Down: Increase/decrease profiler rows
+* A: Enable/disable graph
+* B: Enable/disable labels
+* Y: Change time base
+* Home: Log to CDC
+
+### Raycaster (Ray Caster)
+
+A playable raycasting-based bug-zapper game.
+
+* DPad Left/Right: Turn player
+* DPad Up/Down: Walk forwards/backwards
+* A: Use bug spray
+
+### Rotozoom
+
+A basic example of the rotozoom effect.
+
+### Saves
+
+A basic demo of the save/load functionality.
+
+### Scrolly Tile (Rainbow Ascent)
+
+A playable jumping game. Outrun the rising water.
+
+* DPad Left/Right: Move left/right, cling to walls
+* DPad Up/Down: Climb up
+* A: Jump
+
+### Serial Debug
+
+A basic demo of serial debug.
+
+### SHMUP
+
+Some messy Shoot 'em Up sprites and graphics that never became a working game.
+
+### Sprite Test
+
+A basic demo of loading and displaying sprites at different scales.
+
+### Text
+
+A basic demo of text rendering showing clipping, wrapping, and alignment.
+
+### Tilemap Test
+
+A series of scanline-rendering effects applied to a tilemap.
+
+* DPad Up/Down: Switch effect.
+
+### Tilt
+
+A tilt-sensing sand demo. Requires hardware with a tilt sensor.
+
+### Timer Test
+
+A basic demo of timer functionality, illustrating a timer callback.
+
+### Tunnel
+
+A vertical scanline rendered zooming tunnel effect.
+
+### Tween Demo
+
+A visual demo of various animation easing functions.
+
+* DPad Left/Right: Select previous/next function
+* A: Start/pause animation
+
+### Tween Test
+
+A simple demo of multiple tweening functions used on an object.
+
+### Voxel
+
+A complete streaming Voxel rendering engine.
+
+* DPad Up/Down: Move forwards/backwards
+* Joystick: Move
+* A: Switch map
+
+### Waveform Demo
+
+A basic demo of the built-in audio waveforms.
