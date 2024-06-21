@@ -32,8 +32,6 @@ An example of a flight simulator using mode7 style graphics.
 
 A playable game of asteroids.
 
-### Hardware Test
-
 ### JPEG
 
 Shows how to decode a JPEG image and display it on the screen.
@@ -81,12 +79,6 @@ A mini sequencer.
 * A: Play/Pause
 * B: Mute/Unmute note 
 * Y: Return to start
-
-### PicoSystem Hardware Test
-
-A basic test fo the PicoSystem hardware.
-
-Should play music and show button status.
 
 ### Platformer
 
