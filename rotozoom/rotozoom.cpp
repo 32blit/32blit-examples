@@ -100,16 +100,10 @@ void render(uint32_t time_ms) {
 }
 
 void update(uint32_t time) {
-  static uint32_t last_buttons = 0;
-
-  if (buttons != last_buttons) {
-    if ((buttons & DPAD_UP)) {
-      set_screen_mode(lores);
-    }
-    else {
-      set_screen_mode(hires);
-    }
+  if ((buttons.released & DPAD_UP)) {
+    set_screen_mode(lores);
   }
-
-  last_buttons = buttons;
+  else if(buttons.released & DPAD_DOWN) {
+    set_screen_mode(hires);
+  }
 }
