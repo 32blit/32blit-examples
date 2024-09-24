@@ -3,3 +3,5 @@ assets.cpp:
     name: asset_platformer
   ../assets/tilemap-test.tmx:
     name: asset_tilemap
+    output_struct: true
+    empty_tile: 256 # we don't want an empty tile

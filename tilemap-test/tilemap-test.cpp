@@ -8,14 +8,14 @@
 
 using namespace blit;
 
-TileMap* environment;
+TiledMap *environment;
 
 /* setup */
 void init() {
   blit::set_screen_mode(ScreenMode::lores);
 
   screen.sprites = Surface::load(asset_platformer);
-  environment = new TileMap((uint8_t*)asset_tilemap, nullptr, Size(64, 64), screen.sprites);
+  environment = new TiledMap(asset_tilemap, screen.sprites, LAYER_TRANSFORMS);
 }
 
 
