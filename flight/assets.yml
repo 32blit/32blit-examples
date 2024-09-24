@@ -4,3 +4,8 @@ assets.cpp:
 
   assets/water.png:
     name: water_packed_data
+
+  assets/flight.tmx:
+    name: map_data
+    empty_tile: 17
+    output_struct: true

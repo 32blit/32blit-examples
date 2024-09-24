@@ -22,7 +22,7 @@ uint8_t __water[64 * 64];
 Surface *sprites;
 Surface *water;
 
-Map map(Rect(0, 0, 128, 128));
+TiledMap map(map_data, nullptr, LAYER_TRANSFORMS);
 
 struct object {
   Vec2 pos;
@@ -64,12 +64,13 @@ float rad2deg(float r) {
 }
 
 void init() {
-  map.add_layer("ground", layer);
-  map.layers["ground"].transforms = layer_transforms;
+  auto map_layer = map.get_layer("ground");
 
   // Load our map sprites into the __sprites space we've reserved
   sprites = Surface::load(packed_data, __sprites, sizeof(__sprites));
   sprites->generate_mipmaps(3);
+
+  map_layer->sprites = sprites;
 
   water = Surface::load(water_packed_data, __water, sizeof(__water));
 
@@ -77,26 +78,26 @@ void init() {
   Point p;
   for (p.y = 0; p.y < 128; p.y++) {
     for (p.x = 0; p.x < 128; p.x++) {
-      int16_t tid = map.layers["ground"].tile_at(p);
-      if (tid == 27) {
+      int16_t tid = map_layer->tile_at(p);
+      if (tid == 26) {
         objects.emplace_back(
           Vec2(p.x * 8 + 4, p.y * 8 + 4),
           1
         );
       }
-      if (tid == 28) {
+      if (tid == 27) {
         objects.emplace_back(
           Vec2(p.x * 8 + 4, p.y * 8 + 4),
           2
         );
       }
-      if (tid == 29) {
+      if (tid == 28) {
         objects.emplace_back(
           Vec2(p.x * 8 + 4, p.y * 8 + 4),
           3
         );
       }
-      if (tid == 30) {
+      if (tid == 29) {
         objects.emplace_back(
           Vec2(p.x * 8 + 4, p.y * 8 + 4),
           4
@@ -160,7 +161,9 @@ void render(uint32_t time_ms) {
     }
   }
 
-  mode7(&screen, sprites, &map.layers["ground"], fov, angle, pos, near, far, vp);
+  // map was created with LAYER_TRANSFORMS flag, the the layer will be a TransformedTileLayer
+  auto ground_layer = (TransformedTileLayer *)map.get_layer("ground");
+  mode7(&screen, ground_layer, fov, angle, pos, near, far, vp);
 
   std::vector<DrawObject> drawables = drawObjects(objects);
   std::sort(drawables.begin(), drawables.end()); // sort them so they draw in order
@@ -206,9 +209,9 @@ void render(uint32_t time_ms) {
     for (mmp.x = 0; mmp.x < 64; mmp.x++) {
       Point tp = mmp * 2.0f;
 
-      int16_t tile_id = map.layers["ground"].tile_at(tp) - 1;
+      int16_t tile_id = ground_layer->tile_at(tp);
 
-      if (tile_id != -1) {
+      if (tile_id != ground_layer->empty_tile_id) {
         Point sp(
           (tile_id & 0b1111),
           (tile_id / 16)
