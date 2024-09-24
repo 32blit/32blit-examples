@@ -2,3 +2,7 @@ assets.cpp:
   ../assets/s4m_ur4i-platformer.png:
     name: packed_data
     transparent: 0,0,0
+
+  ../assets/platformer.tmx:
+    name: asset_map
+    output_struct: true
