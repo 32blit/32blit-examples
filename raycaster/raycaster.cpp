@@ -522,7 +522,7 @@ void render_sky() {
 		// Apply radial darkness to simulate directional sunset
 		uint8_t fade = std::max(-120, std::min(120, std::abs(int(r) - 120))) + 60;  // calculate a `fog` based on angle
 		screen.pen = Pen(12, 33, 52, fade);
-		screen.line(Point(column, 0), Point(column, OFFSET_TOP + HORIZON));
+		screen.v_span(Point(column, 0), OFFSET_TOP + HORIZON);
 	}
 }
 
@@ -691,7 +691,7 @@ void render_world(uint32_t time) {
 			float wall_distance = perpendicular_wall_distance / MAX_RAY_STEPS;
 			float alpha = wall_distance * 255.0f;
 			screen.pen = Pen(0, 0, 0, int(alpha));
-			screen.line(Point(column, start_y + OFFSET_TOP), Point(column, end_y + OFFSET_TOP));
+			screen.v_span(Point(column, start_y + OFFSET_TOP), end_y - start_y);
 
 			Vec2 floor_wall(map_location.x, map_location.y);
 
