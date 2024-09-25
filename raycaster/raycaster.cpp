@@ -449,10 +449,8 @@ void render(uint32_t time) {
 	mask.clear();
 #endif
 
-	// clear the canvas
+	// make sure alpha is reset
 	screen.alpha = 255;
-	screen.pen = Pen(22, 21, 31);
-	screen.clear();
 
 	render_sky();
 
