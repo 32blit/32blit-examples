@@ -537,7 +537,7 @@ void render_stars() {
 		if ((180 - std::abs(std::abs(r - star.position.x) - 180)) < 45) {
 			// Get the difference between the star and player angle as degrees, signed
 			int x = (int)r - star.position.x + 180;
-			x = x - std::floor(float(x) / 360.0f) * 360;
+			x = x % 360;
 			x -= 180;
 
 			// Convert the degrees to screen columns
