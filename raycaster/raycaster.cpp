@@ -506,6 +506,10 @@ void render(uint32_t time) {
 }
 
 void render_sky() {
+  // background darkness to blend with later
+  screen.pen = Pen(12, 33, 52);
+  screen.rectangle({0, 0, SCREEN_WIDTH, OFFSET_TOP + HORIZON});
+
 	for (uint16_t column = 0; column < SCREEN_WIDTH; column++) {
 		Vec2 ray = ray_cache[column];
 		// ray.normalize();  // WHY? Has no visual impact
@@ -515,12 +519,11 @@ void render_sky() {
 
 		Point uv(24 + (int(r * 3.0f) % 16), 160 - 32);
 
-		screen.stretch_blit_vspan(screen.sprites, uv, 32, Point(column, 0), HORIZON + OFFSET_TOP); // TODO: blit from spritesheet?
-
-		// Apply radial darkness to simulate directional sunset
+    // Apply radial darkness to simulate directional sunset
 		uint8_t fade = std::max(-120, std::min(120, std::abs(int(r) - 120))) + 60;  // calculate a `fog` based on angle
-		screen.pen = Pen(12, 33, 52, fade);
-		screen.v_span(Point(column, 0), OFFSET_TOP + HORIZON);
+    screen.alpha = 255 - fade;
+
+		screen.stretch_blit_vspan(screen.sprites, uv, 32, Point(column, 0), HORIZON + OFFSET_TOP); // TODO: blit from spritesheet?
 	}
 }
 
