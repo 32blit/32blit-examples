@@ -34,9 +34,9 @@ Player player1{
 	false,
 	false
 };
-Map map(Rect(0, 0, 16, 16));
-MapLayer *map_layer_walls;
-MapLayer *map_layer_floor;
+TiledMap map({16, 16}, 2, nullptr);
+TileLayer *map_layer_walls;
+TileLayer *map_layer_floor;
 
 // Sizes for various sprites
 const Rect sprite_bounds[9] = {
@@ -180,14 +180,16 @@ void init() {
 	sprites_world->pen = Pen(16);
 	sprites_world->circle(sprite_bounds[8].center(), sprite_bounds[8].w / 2);
 
-	map.add_layer("walls", map_data_walls);
-	map_layer_walls = &map.layers["walls"];
-	map_layer_walls->add_flags({ 1, 2, 3, 4, 5 }, TileFlags::WALL);
-	map_layer_walls->add_flags({ 1, 2, 3, 4, 5 }, TileFlags::NO_GRASS); // Don't draw grass on walls
+	map_layer_walls = map.get_layer(0);
+  map_layer_walls->name = "walls";
+  map_layer_walls->set_tiles(map_data_walls.data());
+	map.add_flags(0, { 1, 2, 3, 4, 5 }, TileFlags::WALL);
+	map.add_flags(0, { 1, 2, 3, 4, 5 }, TileFlags::NO_GRASS); // Don't draw grass on walls
 
-	map.add_layer("floor", map_data_floor);
-	map_layer_floor = &map.layers["floor"];
-	map_layer_floor->add_flags({ 3, 4, 5 }, TileFlags::NO_GRASS); // Don't draw grass on flagstones
+	map_layer_floor = map.get_layer(1);
+  map_layer_floor->name = "floor";
+  map_layer_floor->set_tiles(map_data_floor.data());
+	map.add_flags(1, { 3, 4, 5 }, TileFlags::NO_GRASS); // Don't draw grass on flagstones
 
 
 	for (int x = 0; x < SCREEN_WIDTH; x++) {
