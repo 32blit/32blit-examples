@@ -794,8 +794,7 @@ void render_sprites(uint32_t time) {
 			max_distance = MAX_RAY_STEPS * 2;
 		}
 
-		float distance = std::min(max_distance, psprite.distance);
-		if (distance >= max_distance) {
+		if (psprite.distance >= max_distance) {
 			continue;
 		}
 
