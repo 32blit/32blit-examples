@@ -726,7 +726,7 @@ void render_world(uint32_t time) {
 					(current_floor.y - std::floor(current_floor.y)) * 32
 				);
 
-				uint8_t floor_texture = map_layer_floor->tile_at(Point(int(current_floor.x), int(current_floor.y))) - 1;
+				auto floor_texture = map_layer_floor->tile_at(Point(int(current_floor.x), int(current_floor.y))) - 1;
 				//uint8_t floor_texture = get_map_tile(point(int(current_floor.x), int(current_floor.y))) & 0x0f;
 
 				Point floor_texture_sprite(
@@ -737,18 +737,18 @@ void render_world(uint32_t time) {
 				// and use this to create a distance shadowing effect
 				// dist = current_floor - player1.position;
 				// p_distance = dist.length();
+        float floor_distance = distance / MAX_RAY_STEPS;
 
 				int fragment_x = floor_texture_sprite.x + tile_uv.x;
 				int fragment_y = floor_texture_sprite.y + tile_uv.y;
 
+        Pen fragment_c = screen.sprites->get_pixel({fragment_x, fragment_y});
 
-				uint8_t fragment_c_idx = *screen.sprites->ptr(fragment_x, fragment_y);
-				screen.pen = screen.sprites->palette[fragment_c_idx];
-				screen.pixel(Point(column, y - 1 + OFFSET_TOP));
+        fragment_c.r *= 1.0f - floor_distance;
+        fragment_c.g *= 1.0f - floor_distance;
+        fragment_c.b *= 1.0f - floor_distance;
 
-				float floor_distance = distance / MAX_RAY_STEPS;
-
-				screen.pen = Pen(0, 0, 0, int(floor_distance * 255.0f));
+				screen.pen = fragment_c;
 				screen.pixel(Point(column, y - 1 + OFFSET_TOP));
 			}
 		}
