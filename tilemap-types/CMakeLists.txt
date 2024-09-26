@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.9)
+project (tilemap-types)
+find_package (32BLIT CONFIG REQUIRED PATHS ../..)
+blit_executable (tilemap-types tilemap-types.cpp)
+blit_assets_yaml (tilemap-types assets.yml)
+blit_metadata (tilemap-types metadata.yml)

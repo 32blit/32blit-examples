@@ -1,0 +1,20 @@
+assets.cpp:
+  # tileset
+  ../assets/s4m_ur4i-platformer.png:
+    name: asset_platformer
+    transparent: 0, 0, 0
+
+  # map
+  ../assets/platformer.tmx:
+    name: asset_tilemap
+    output_struct: true # include a header with map width/height/layers
+
+  # transformed layers need a power of two map size
+  ../assets/platformer_pot.tmx:
+    name: asset_tilemap_pot
+    output_struct: true
+
+
+tilemap.bin:
+  ../assets/platformer.tmx:
+    output_struct: true

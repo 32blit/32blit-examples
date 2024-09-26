@@ -1,0 +1,10 @@
+title: Tilemap Types
+description: A showcase of tiled maps
+author: pimoroni
+splash:
+  file: ../no-image.png
+icon:
+  file: ../no-icon.png
+version: v1.0.0
+url: https://github.com/32blit/32blit-sdk
+category: demo
