@@ -1,9 +1,7 @@
-
 #include <string>
 #include <cstring>
 #include <memory>
 #include <cstdlib>
-
 
 #include "rotozoom.hpp"
 
@@ -27,11 +25,6 @@ uint8_t logo[16][16] = {
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 };
-
-uint8_t mask_buffer[320 * 240];
-Surface hires_mask(mask_buffer, PixelFormat::M, Size(320, 240));
-Surface lores_mask(mask_buffer, PixelFormat::M, Size(160, 120));
-Surface mask = hires_mask;
 
 /* setup */
 void init() {
@@ -82,33 +75,14 @@ void rotozoom(uint32_t time_ms) {
 int tick_count = 0;
 void render(uint32_t time_ms) {
   screen.alpha = 255;
-  screen.mask = nullptr;
   screen.pen = Pen(0, 0, 0, 255);
   screen.clear();
-
-  mask.pen = Pen(50);
-  mask.clear();
-  mask.pen = Pen(255);
-  Point centre = Point(160 + sinf(time_ms / 200.0f) * 40, 120 + cosf(time_ms / 200.0f) * 40);
-  mask.circle(centre, 100);
-
-  //screen.mask = &mask;
 
   uint32_t ms_start = now();
 
   rotozoom(time_ms);
 
   uint32_t ms_end = now();
-/*
-  for (auto y = 0; y < 10; y++) {
-    for (auto x = 0; x < 10; x++) {
-      float s = (sin(time_ms / 1000.0f) * 2.0f) + 3.0f;
-      screen.sprite(Point(x, y), Point(x * 8 * s + 160, y * 8 * s + 120), Point(40, 40), Vec2(s, s));
-    }
-  }*/
-
-  screen.mask = nullptr;
-
 
   // draw FPS meter
   screen.pen = Pen(0, 0, 0, 200);
@@ -126,18 +100,10 @@ void render(uint32_t time_ms) {
 }
 
 void update(uint32_t time) {
-  static uint32_t last_buttons = 0;
-
-  if (buttons != last_buttons) {
-    if ((buttons & DPAD_UP)) {
-      set_screen_mode(lores);
-      mask = lores_mask;
-    }
-    else {
-      set_screen_mode(hires);
-      mask = hires_mask;
-    }
+  if ((buttons.released & DPAD_UP)) {
+    set_screen_mode(lores);
   }
-
-  last_buttons = buttons;
+  else if(buttons.released & DPAD_DOWN) {
+    set_screen_mode(hires);
+  }
 }
