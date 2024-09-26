@@ -35,8 +35,8 @@ void init() {
 
   auto sprites = Surface::load(asset_platformer);
 
-  //map = new TiledMap(asset_tilemap, sprites);
-  map = new TiledMap("tilemap.bin", sprites);
+  map = new TiledMap(asset_tilemap, sprites);
+  //map = new TiledMap("tilemap.bin", sprites);
 
   // load a transformable map, this requires the bounds to be a power of two
   // (copying tiles/transforms is the default)
@@ -63,7 +63,7 @@ void render(uint32_t time_ms) {
   } else {
     draw_map->set_scroll_position(scroll_position);
   }
-  
+
   draw_map->draw();
 
 
