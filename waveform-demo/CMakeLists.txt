@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.9...3.26)
 project (waveform-demo)
 find_package (32BLIT CONFIG REQUIRED PATHS ../..)
 blit_executable (waveform-demo waveform-demo.cpp)

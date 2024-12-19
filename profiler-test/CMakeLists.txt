@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.9...3.26)
 project (profiler-test)
 find_package (32BLIT CONFIG REQUIRED PATHS ../..)
 blit_executable (profiler-test profiler-test.cpp)
