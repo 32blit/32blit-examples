@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.9...3.26)
 project (platformer)
 find_package (32BLIT CONFIG REQUIRED PATHS ../..)
 blit_executable (platformer platformer.cpp)

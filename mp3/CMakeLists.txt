@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.9...3.26)
 project (mp3)
 find_package (32BLIT CONFIG REQUIRED PATHS ../..)
 blit_executable (mp3 mp3.cpp)
