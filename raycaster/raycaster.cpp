@@ -449,10 +449,8 @@ void render(uint32_t time) {
 	mask.clear();
 #endif
 
-	// clear the canvas
+	// make sure alpha is reset
 	screen.alpha = 255;
-	screen.pen = Pen(22, 21, 31);
-	screen.clear();
 
 	render_sky();
 
@@ -508,6 +506,10 @@ void render(uint32_t time) {
 }
 
 void render_sky() {
+  // background darkness to blend with later
+  screen.pen = Pen(12, 33, 52);
+  screen.rectangle({0, 0, SCREEN_WIDTH, OFFSET_TOP + HORIZON});
+
 	for (uint16_t column = 0; column < SCREEN_WIDTH; column++) {
 		Vec2 ray = ray_cache[column];
 		// ray.normalize();  // WHY? Has no visual impact
@@ -517,12 +519,11 @@ void render_sky() {
 
 		Point uv(24 + (int(r * 3.0f) % 16), 160 - 32);
 
-		screen.stretch_blit_vspan(screen.sprites, uv, 32, Point(column, 0), HORIZON + OFFSET_TOP); // TODO: blit from spritesheet?
-
-		// Apply radial darkness to simulate directional sunset
+    // Apply radial darkness to simulate directional sunset
 		uint8_t fade = std::max(-120, std::min(120, std::abs(int(r) - 120))) + 60;  // calculate a `fog` based on angle
-		screen.pen = Pen(12, 33, 52, fade);
-		screen.line(Point(column, 0), Point(column, OFFSET_TOP + HORIZON));
+    screen.alpha = 255 - fade;
+
+		screen.stretch_blit_vspan(screen.sprites, uv, 32, Point(column, 0), HORIZON + OFFSET_TOP); // TODO: blit from spritesheet?
 	}
 }
 
@@ -537,7 +538,7 @@ void render_stars() {
 		if ((180 - std::abs(std::abs(r - star.position.x) - 180)) < 45) {
 			// Get the difference between the star and player angle as degrees, signed
 			int x = (int)r - star.position.x + 180;
-			x = x - std::floor(float(x) / 360.0f) * 360;
+			x = x % 360;
 			x -= 180;
 
 			// Convert the degrees to screen columns
@@ -691,7 +692,7 @@ void render_world(uint32_t time) {
 			float wall_distance = perpendicular_wall_distance / MAX_RAY_STEPS;
 			float alpha = wall_distance * 255.0f;
 			screen.pen = Pen(0, 0, 0, int(alpha));
-			screen.line(Point(column, start_y + OFFSET_TOP), Point(column, end_y + OFFSET_TOP));
+			screen.v_span(Point(column, start_y + OFFSET_TOP), end_y - start_y);
 
 			Vec2 floor_wall(map_location.x, map_location.y);
 
@@ -726,7 +727,7 @@ void render_world(uint32_t time) {
 					(current_floor.y - std::floor(current_floor.y)) * 32
 				);
 
-				uint8_t floor_texture = map_layer_floor->tile_at(Point(int(current_floor.x), int(current_floor.y))) - 1;
+				auto floor_texture = map_layer_floor->tile_at(Point(int(current_floor.x), int(current_floor.y))) - 1;
 				//uint8_t floor_texture = get_map_tile(point(int(current_floor.x), int(current_floor.y))) & 0x0f;
 
 				Point floor_texture_sprite(
@@ -737,18 +738,18 @@ void render_world(uint32_t time) {
 				// and use this to create a distance shadowing effect
 				// dist = current_floor - player1.position;
 				// p_distance = dist.length();
+        float floor_distance = distance / MAX_RAY_STEPS;
 
 				int fragment_x = floor_texture_sprite.x + tile_uv.x;
 				int fragment_y = floor_texture_sprite.y + tile_uv.y;
 
+        Pen fragment_c = screen.sprites->get_pixel({fragment_x, fragment_y});
 
-				uint8_t fragment_c_idx = *screen.sprites->ptr(fragment_x, fragment_y);
-				screen.pen = screen.sprites->palette[fragment_c_idx];
-				screen.pixel(Point(column, y - 1 + OFFSET_TOP));
+        fragment_c.r *= 1.0f - floor_distance;
+        fragment_c.g *= 1.0f - floor_distance;
+        fragment_c.b *= 1.0f - floor_distance;
 
-				float floor_distance = distance / MAX_RAY_STEPS;
-
-				screen.pen = Pen(0, 0, 0, int(floor_distance * 255.0f));
+				screen.pen = fragment_c;
 				screen.pixel(Point(column, y - 1 + OFFSET_TOP));
 			}
 		}
@@ -794,8 +795,7 @@ void render_sprites(uint32_t time) {
 			max_distance = MAX_RAY_STEPS * 2;
 		}
 
-		float distance = std::min(max_distance, psprite.distance);
-		if (distance >= max_distance) {
+		if (psprite.distance >= max_distance) {
 			continue;
 		}
 
