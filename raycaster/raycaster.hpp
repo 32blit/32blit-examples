@@ -8,20 +8,24 @@ constexpr float M_PI_H = 1.5707963267948966f;
 
 constexpr float EPSILON = 0.00000001f;
 
-#ifdef PICO_BOARD
+#ifdef PICO_BUILD
+constexpr uint16_t NUM_SPRITES = 1000;
+constexpr uint16_t NUM_STARS = 50;
+#else
+constexpr uint16_t NUM_SPRITES = 5000;
+constexpr uint16_t NUM_STARS = 100;
+#endif
+
+#ifdef BLIT_BOARD_PIMORONI_PICOSYSTEM
 constexpr uint16_t OFFSET_TOP = 30;
 constexpr uint16_t SCREEN_WIDTH = 120;
 constexpr uint16_t SCREEN_HEIGHT = 120;
-constexpr uint16_t NUM_SPRITES = 1000;
-constexpr uint16_t NUM_STARS = 50;
 #define AMBIENT_OCCLUSION // Paints into a mask with a blur pass, disable for a slight performance boost
 //#define SHOW_FPS          // Frame time is pretty high on PicoSystem, so just turn off the FPS meter :D
 #else
 constexpr uint16_t OFFSET_TOP = 0;
 constexpr uint16_t SCREEN_WIDTH = 160;
 constexpr uint16_t SCREEN_HEIGHT = 120;
-constexpr uint16_t NUM_SPRITES = 5000;
-constexpr uint16_t NUM_STARS = 100;
 #define AMBIENT_OCCLUSION
 //#define SHOW_FPS
 #endif
