@@ -16,7 +16,7 @@ constexpr uint16_t NUM_SPRITES = 5000;
 constexpr uint16_t NUM_STARS = 100;
 #endif
 
-#ifdef BLIT_BOARD_PIMORONI_PICOSYSTEM
+#if defined(BLIT_BOARD_PIMORONI_PICOSYSTEM) || defined(BLIT_BOARD_PIMORONI_PRESTO)
 constexpr uint16_t OFFSET_TOP = 30;
 constexpr uint16_t SCREEN_WIDTH = 120;
 constexpr uint16_t SCREEN_HEIGHT = 120;
